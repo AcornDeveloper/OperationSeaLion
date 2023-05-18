@@ -1,0 +1,89 @@
+   10 REM INTEL
+   20 *KEY0MODE7|MVDU14|ML.550,|M
+   30 *KEY1RUN|M
+   40 *KEY2REN.|M
+   50 *KEY3P.P%-&3A70|M
+   60 *KEY10PAGE=&5000|MOLD|M*FX12,2|M
+   70 addin=&60
+   80 tempa=&70:tempx=&71
+   90 tempy=&72:tempz=&73
+  100 sprix=&76:spriy=&78
+  110 choic=&80:param=&84
+  120 resul=&88:denom=&89
+  130 numer=&8A
+  140 divdi=&197A
+  150 mensl=&1A3A:eficn=&1A9A
+  160 moral=&1ACA:mobil=&1AFA
+  170 INDIR=&2000
+  180 ARRGO=&200C
+  190 PERIP=&2012
+  200 HASHS=&2027
+  210 EQUAL=&2030
+  220 TABLE=&202A
+  230 FILES=&203F
+  240 REPOR=&2048
+  250 CABIN=&204B
+  260 SUPER=&2051
+  270 BINAR=&2A03
+  280 NOISE=&2B80
+  290 MAPPS=&2D00
+  300 WEATH=&2D09
+  310 ARMYS=&2D12
+  320 MULTI=&2D18
+  330 SHARE=&2D1B
+  340 OSO=&FFF1:OSB=&FFF4
+  350 FORA%=0TO2STEP2:P%=&3A70:[OPTA%
+  360 .BRIAN JMPA
+  370 .FINGE JMPB
+  380 .brian
+  390 EQUW&F1F:EQUB5:EQUS"INTELLIGENCE"
+  400 EQUW&F1F:EQUB8:EQUS"Weather Forecast"
+  410 EQUW&D1F:EQUB10:EQUS"Force Disposition"
+  420 EQUW&B1F:EQUB12:EQUS"Overall Report"
+  430 EQUW&91F:EQUB14:EQUS"End"
+  440 .A
+  450 LDA#3:JSRFILES
+  460 LDA#A-brian:LDX#brian AND255:LDY#brian/256:JSRINDIR
+  470 LDA#12:LDX#15:LDY#6:JSREQUAL
+  480 .intel JSRPERIP:JSRARRGO:JSRSUPER
+  490 LDAchoic:BEQintel
+  500 JSRB:TAX:BMIintel:CMP#3:BEQratts
+  510 PHA:LDA#1:JSRNOISE
+  520 LDA#4:JSRTABLE:PLA:ASLA:TAX:LDAaddrs+1,X:PHA:LDAaddrs,X:PHA:.ratts RTS
+  530 .zeros JSRWEATH:JSRCABIN:JSRHASHS:JMPsqawk
+  540 .onzze JSRMAPPS:JSRARMYS:JSRCABIN:JSRHASHS:JMPsqawk
+  550 .treiz JSRREPOR:LDA#0:LDX#7
+  560 .loops STAaddin,X:DEX:BPLloops:LDX#23
+  570 .moves LDAdivdi,X:BMIround
+  580 LDAaddin:CLC:ADCmobil,X:STAaddin:BCCruths:INCaddin+1
+  590 .ruths LDAaddin+2:CLC:ADCmensl,X:STAaddin+2:BCCjimmi:INCaddin+3
+  600 .jimmi LDAaddin+4:CLC:ADCmoral,X:STAaddin+4:BCCclear:INCaddin+5
+  610 .clear LDAaddin+6:CLC:ADCeficn,X:STAaddin+6:BCCround:INCaddin+7
+  620 .round DEX:BPLmoves:LDA#22:STAparam:LDA#0:STAparam+3
+  630 LDX#6:.stats STXtempz
+  640 LDAaddin,X:STAnumer:LDAaddin+1,X:STAnumer+1:LDA#24:STAdenom:JSRSHARE
+  650 LDAresul:STAtempa:LDA#100:STAtempx:JSRMULTI
+  660 LDAtempz:CLC:ADC#16:STAparam+1
+  670 LDAtempy:STAparam+2:JSRBINAR
+  680 LDXtempz:DEX:DEX:BPLstats
+  690 JMPsound
+  700 .sound JSRCABIN
+  710 .sqawk LDA#1:JSRNOISE
+  720 LDA#5:JSRTABLE:JMPintel
+  730 .addrs
+  740 EQUWzeros-1:EQUWonzze-1
+  750 EQUWtreiz-1
+  760 .xcool
+  770 EQUB113:EQUB97:EQUB81:EQUB65
+  780 .xcooh
+  790 EQUB255:EQUB238:EQUB222:EQUB206
+  800 .ycool
+  810 EQUB184:EQUB168:EQUB152:EQUB136
+  820 .ycooh
+  830 EQUB194:EQUB179:EQUB162:EQUB146
+  840 .B
+  850 LDX#3:.cabin LDAspriy:CMPycool,X:BCCnexts:CMPycooh,X:BCSnexts
+  860 LDAsprix:CMPxcool,X:BCCnexts:CMPxcooh,X:BCCfound
+  870 .nexts DEX:BPLcabin:.found TXA:RTS
+  880 ]:NEXT
+

@@ -1,0 +1,45 @@
+   10 REM
+   20 REM BBC disc to tape
+   30 REM
+   40 IFPAGE<>&4600:PAGE=&4600:CHAIN"B.BAKUP"
+   50 *TV255
+   60 MODE7
+   70 PRINT"BBC tape backup"
+   80 PRINT"Press return when ready"
+   90 *FX21,0
+  100 REPEAT
+  110 F=GET
+  120 UNTILF=&D
+  130 PRINT"No need to press return any more."'
+  140 *LOAD"LION1" 5000
+  150 *TAPE
+  160 PROCinser
+  170 *SAVE"LION1" 5000 +700 8023
+  180 *DISC
+  190 *LOAD"UNION"
+  200 *TAPE
+  210 PROCinser
+  220 *SAVE"UNION" 2862 +300 2862
+  230 PROCdelay(300)
+  240 *DISC
+  250 *LOAD"LION2"
+  260 *TAPE
+  270 PROCinser
+  280 *SAVE"LION2" 0A00 +200 0A00
+  290 *DISC
+  300 *LOAD"LION3"
+  310 *TAPE
+  320 PROCinser
+  330 *SAVE"LION3" 1200 4400 0A01
+  340 *DISC
+  350 PRINT"ˆTransfer completed."
+  360 END
+  370 DEFPROCdelay(A%)
+  380 FORJ%=0TOA%
+  390 *FX19
+  400 NEXT
+  410 ENDPROC
+  420 DEFPROCinser
+  430 *FX138,0,13
+  440 ENDPROC
+
